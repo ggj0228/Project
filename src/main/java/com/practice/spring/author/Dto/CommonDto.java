@@ -1,4 +1,4 @@
-package com.practice.spring.Dto;
+package com.practice.spring.author.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

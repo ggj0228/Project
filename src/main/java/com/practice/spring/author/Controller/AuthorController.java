@@ -1,9 +1,12 @@
-package com.practice.spring.Controller;
+package com.practice.spring.author.Controller;
 
 
-import com.practice.spring.Dto.*;
-import com.practice.spring.Service.AuthorService;
-import com.practice.spring.domain.Author;
+import com.practice.spring.author.Dto.AuthorCreateDto;
+import com.practice.spring.author.Dto.AuthorListDto;
+import com.practice.spring.author.Dto.AuthorUpdatePwDto;
+import com.practice.spring.author.Dto.CommonDto;
+import com.practice.spring.author.Service.AuthorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +21,7 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping("/sign")
-    public ResponseEntity<String> save(@RequestBody AuthorCreateDto authorCreateDto) {
+    public ResponseEntity<String> save(@Valid @RequestBody AuthorCreateDto authorCreateDto) {
         this.authorService.save(authorCreateDto);
         return new ResponseEntity<>("sign up complete!", HttpStatus.CREATED);
     }

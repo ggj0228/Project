@@ -1,6 +1,6 @@
-package com.practice.spring.Repository;
+package com.practice.spring.author.Repository;
 
-import com.practice.spring.domain.Author;
+import com.practice.spring.author.domain.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
