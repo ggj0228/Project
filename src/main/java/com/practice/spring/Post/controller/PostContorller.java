@@ -4,10 +4,13 @@ import com.practice.spring.Post.dto.PostCreateDto;
 import com.practice.spring.Post.dto.PostDetailDto;
 import com.practice.spring.Post.dto.PostListDto;
 import com.practice.spring.Post.service.PostService;
-import com.practice.spring.author.Dto.CommonDto;
-import com.practice.spring.author.Dto.CommonErrorDto;
+import com.practice.spring.Common.CommonDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +30,8 @@ public class PostContorller {
         return new ResponseEntity<>(new CommonDto(postCreateDto, HttpStatus.CREATED.value(), "post is created"), HttpStatus.CREATED);
     }
     @GetMapping("/list")
-    public ResponseEntity<?> postList() {
-        List<PostListDto> posts = this.postService.findAll();
+    public ResponseEntity<?> postList(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+        Page<PostListDto> posts = this.postService.findAll(pageable);
         return new ResponseEntity<>(new CommonDto(posts, HttpStatus.OK.value(), "posts"), HttpStatus.OK);
     }
 

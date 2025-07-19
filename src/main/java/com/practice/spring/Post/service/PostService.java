@@ -12,6 +12,8 @@ import com.practice.spring.author.domain.Author;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +40,9 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostListDto> findAll() {
-        return this.postRepository.findAll().stream().map(a -> PostListDto.fromEntity(a)).toList();
+    public Page<PostListDto> findAll(Pageable pageable) {
+        Page<Post> postList = this.postRepository.findByDelYn(pageable, "N");
+        return postList.map(p -> PostListDto.fromEntity(p));
     }
 
     @Transactional(readOnly = true)

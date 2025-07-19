@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class PostCreateDto {
-    @NotNull
+    @NotNull(message = "plz write title")
     private String title;
     private String contents;
-    @NotNull
+    @NotNull(message = "check authorId")
     private Long authorId;
+
 
 
     public  Post toEntity (Author author) {
@@ -26,6 +27,7 @@ public class PostCreateDto {
                 .title(this.title)
                 .contents(this.contents)
                 .author(author)
+                .delYn("N")
                 .build();
     }
 

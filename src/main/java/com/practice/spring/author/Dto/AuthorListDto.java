@@ -16,12 +16,14 @@ public class AuthorListDto {
     private Long id;
     private String name;
     private String password;
+    private Integer postConut;
 
     public static AuthorListDto fromListEntity(Author author) {
         return AuthorListDto.builder()
                 .id(author.getId())
                 .name(author.getName())
                 .password(author.getPassword())
+                .postConut(author.getPostList().size())
                 .build();
     }
 }

@@ -4,7 +4,7 @@ package com.practice.spring.author.Controller;
 import com.practice.spring.author.Dto.AuthorCreateDto;
 import com.practice.spring.author.Dto.AuthorListDto;
 import com.practice.spring.author.Dto.AuthorUpdatePwDto;
-import com.practice.spring.author.Dto.CommonDto;
+import com.practice.spring.Common.CommonDto;
 import com.practice.spring.author.Service.AuthorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
