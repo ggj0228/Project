@@ -51,4 +51,10 @@ public class PostService {
         return PostDetailDto.fromEntity(post);
     }
 
+    // auhtor가 쓴 글을 리스트로 표시
+    @Transactional(readOnly = true)
+    public Page<PostListDto> findByAuthorId(Pageable pageable, Long authorId) {
+        Page<Post> postAuthorList = this.postRepository.findByAuthorIdAndDelYn(authorId, pageable,"N");
+        return postAuthorList.map(page -> PostListDto.fromAuthorIdEntity(page));
+    }
 }

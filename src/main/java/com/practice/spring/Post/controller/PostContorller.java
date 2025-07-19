@@ -40,4 +40,18 @@ public class PostContorller {
         PostDetailDto postfound = this.postService.findById(id);
         return new ResponseEntity<>(new CommonDto(postfound, HttpStatus.OK.value(), "post found"), HttpStatus.OK);
     }
+
+    // auhtor가 쓴 글을 리스트로 표시
+
+    @GetMapping("/author/{authorid}/list")
+    public ResponseEntity<?> postListByAuthor(
+            @PathVariable Long authorid,
+            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable
+    ) {
+
+        Page<PostListDto> postAuthorList = this.postService.findByAuthorId(pageable, authorid);
+        return new ResponseEntity<>(new CommonDto(postAuthorList, HttpStatus.OK.value(), "postlist by author"), HttpStatus.OK);
+
+
+    }
 }
