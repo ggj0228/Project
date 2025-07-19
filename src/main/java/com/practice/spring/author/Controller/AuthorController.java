@@ -37,7 +37,7 @@ public class AuthorController {
     }
 
     @PatchMapping("/updatepw")
-    public ResponseEntity<String> updatePw(@RequestBody AuthorUpdatePwDto authorUpdatePwDto) {
+    public ResponseEntity<String> updatePw(@Valid @RequestBody AuthorUpdatePwDto authorUpdatePwDto) {
         this.authorService.updatePw(authorUpdatePwDto);
         return new ResponseEntity<>("password is changed", HttpStatus.OK);
     }

@@ -44,8 +44,19 @@ public class AuthorService {
 
 
     public void updatePw(AuthorUpdatePwDto authorUpdatePwDto){
-        Author author = this.authorRepository.findByEmail(authorUpdatePwDto.getEmail()).orElseThrow(() -> new EntityNotFoundException("email isnt correct"));
-        author.updatePwd(authorUpdatePwDto.getPassword());
+        Author author = this.authorRepository.findByEmail(authorUpdatePwDto.getEmail()).orElseThrow(() -> new EntityNotFoundException("email isn't correct"));
+        String storedPassword = author.getPassword();
+        String userKnowCurrentPassword = authorUpdatePwDto.getPassword();
+        String userWantPassword = authorUpdatePwDto.getNewPassword();
+        // 가입 당시 입력했던 비밀번호랑 사용자가 입력한 비밀번호가 같은지 확인, 다르면 예외
+        if(!storedPassword.equals(userKnowCurrentPassword)){
+            throw new IllegalArgumentException("check your password you sets");
+        }
+        // 새로운 비밀번호란 가입당시 비밀번호가 같은지 확인, 같으면 예외
+        if(userKnowCurrentPassword.equals(userWantPassword)) {
+            throw new IllegalArgumentException("plz input  differnt password you sets in the past.");
+        }
+        author.updatePwd(authorUpdatePwDto.getNewPassword());
     }
 
     public void delete(Long id) {

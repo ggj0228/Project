@@ -14,5 +14,9 @@ public class AuthorUpdatePwDto {
     @NotEmpty(message = "plz input email")
     private String email;
     @Size(min = 8, message = "plz input over 8")
+    @NotEmpty(message = "plz input your current password")
     private String password;
+    @Size(min = 8, message = "plz input over 8")
+    @NotEmpty(message = "plz input your new password")
+    private String newPassword;
 }
