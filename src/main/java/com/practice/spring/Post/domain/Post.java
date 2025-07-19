@@ -29,4 +29,9 @@ public class Post extends BaseTimeEntity {
 
     private String delYn;
 
+    //게시글 삭제 메서드
+    public void softDelete(){
+        this.delYn ="Y";
+    }
+
 }

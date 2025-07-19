@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL) // null값은 안 보이게
+// jsoninclude 어노테이션을 활용해서 serislize를 포함시킬 값을 설정
 public class PostListDto {
     private Long id;
     private String title;
@@ -31,7 +32,9 @@ public class PostListDto {
     // auhtor가 쓴 글을 리스트로 표시
     public static PostListDto fromAuthorIdEntity (Post post) {
         return PostListDto.builder()
+                .id(post.getId())
                 .name(post.getAuthor().getName())
+                .authorEmail(post.getAuthor().getEmail())
                 .title(post.getTitle())
                 .contents(post.getContents())
                 .build();

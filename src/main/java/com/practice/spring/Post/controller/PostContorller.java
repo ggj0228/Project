@@ -1,6 +1,7 @@
 package com.practice.spring.Post.controller;
 
 import com.practice.spring.Post.dto.PostCreateDto;
+import com.practice.spring.Post.dto.PostDeleteDto;
 import com.practice.spring.Post.dto.PostDetailDto;
 import com.practice.spring.Post.dto.PostListDto;
 import com.practice.spring.Post.service.PostService;
@@ -51,7 +52,10 @@ public class PostContorller {
 
         Page<PostListDto> postAuthorList = this.postService.findByAuthorId(pageable, authorid);
         return new ResponseEntity<>(new CommonDto(postAuthorList, HttpStatus.OK.value(), "postlist by author"), HttpStatus.OK);
-
-
+    }
+    @PatchMapping("/delete")
+    public ResponseEntity<?> postDelete(@Valid @RequestBody PostDeleteDto dto) {
+        this.postService.postDelete(dto);
+        return new ResponseEntity<>("your post is deleted", HttpStatus.OK);
     }
 }

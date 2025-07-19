@@ -2,6 +2,7 @@ package com.practice.spring.Post.service;
 
 import com.practice.spring.Post.domain.Post;
 import com.practice.spring.Post.dto.PostCreateDto;
+import com.practice.spring.Post.dto.PostDeleteDto;
 import com.practice.spring.Post.dto.PostDetailDto;
 import com.practice.spring.Post.dto.PostListDto;
 import com.practice.spring.Post.repository.PostRepository;
@@ -56,5 +57,17 @@ public class PostService {
     public Page<PostListDto> findByAuthorId(Pageable pageable, Long authorId) {
         Page<Post> postAuthorList = this.postRepository.findByAuthorIdAndDelYn(authorId, pageable,"N");
         return postAuthorList.map(page -> PostListDto.fromAuthorIdEntity(page));
+    }
+
+    // post 삭제
+    public void postDelete(PostDeleteDto dto) {
+        Post post = this.postRepository.findById(dto.getPostId()).orElseThrow(() -> new EntityNotFoundException("postid not found"));
+        if(!dto.getAuthorEmail().equals(post.getAuthor().getEmail())) {
+            throw new IllegalArgumentException("email discord");
+        }
+        if(!dto.getAuthorPassword().equals(post.getAuthor().getPassword())) {
+            throw new IllegalArgumentException("password discord");
+        }
+        post.softDelete();
     }
 }
